@@ -31,7 +31,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
   const book = books[isbn]
 
   if (book) {
-    return res.status(200).send(book);   // 料理（本）を返す
+    return res.status(200).send(book);   // 本を返す
   } else {
     return res.status(404).json({ message: "Not Found" }); // 見つからないときの返事
   }
@@ -40,22 +40,54 @@ public_users.get('/isbn/:isbn',function (req, res) {
 // 3. Get book details based on author
 //GET http://localhost:5000/author/:authorでアクセスされたときだけ呼ばれる
 public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const authorLookingFor = req.params.author //URLからauthorを取得
+    const results = [] //特定の作家の本をまとめた配列
+
+    //作家の本が見つかったら配列にpush
+    for (let isbn in books) {
+        if (books[isbn].author === authorLookingFor) {
+          results.push({ isbn: isbn, ...books[isbn] }); //...はそのままbooks[isbn] の中をコピーしてappendするという意味
+        }
+      }
+  
+    if (results.length > 0) {
+      return res.status(200).json(results);   // 本を返す
+    } else {
+      return res.status(404).json({ message: "Not Found" }); // 見つからないときの返事
+    }
 });
 
 // 4. Get all books based on title
 //GET http://localhost:5000/title/:titleでアクセスされたときだけ呼ばれる
 public_users.get('/title/:title',function (req, res) {
-  //Write your code here
-  return res.status(200).send(book);
+    const titleLookingFor = req.params.title //URLからauthorを取得
+    const results = [] //特定の作家の本をまとめた配列
+
+    //titleに該当する作家の本が見つかったら配列にpush
+    for (let isbn in books) {
+        if (books[isbn].title === titleLookingFor) {
+          results.push({ isbn: isbn, ...books[isbn] }); //...はそのままbooks[isbn] の中をコピーしてappendするという意味
+        }
+      }
+  
+    if (results.length > 0) {
+      return res.status(200).json(results);   // 本を返す
+    } else {
+      return res.status(404).json({ message: "Not Found" }); // 見つからないときの返事
+    }
 });
 
 // 5. Get book review
 //GET http://localhost:5000/review/:isbnでアクセスされたときだけ呼ばれる
 public_users.get('/review/:isbn',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const isbn = req.params.isbn //URLからisbnを取得
+    const book = books[isbn]
+  
+    if (book) {
+      return res.status(200).send(book.reviews);   // 本を返す
+    } else {
+      return res.status(404).json({ message: "Not Found" }); // 見つからないときの返事
+    }
 });
 
 module.exports.general = public_users;
