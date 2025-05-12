@@ -1,8 +1,10 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const session = require('express-session')
-const customer_routes = require('./router/auth_users.js').authenticated;
-const genl_routes = require('./router/general.js').general;
+const express = require('express');     // expressという外部モジュールを読み込む
+const jwt = require('jsonwebtoken');     // JWT 認証用ライブラリ
+const session = require('express-session')   // セッション管理ミドルウェア
+
+//二つのルート
+const customer_routes = require('./router/auth_users.js').authenticated;    // log in 認証が必要なルートを定義
+const genl_routes = require('./router/general.js').general; //一般ルートを定義（ログイン不要）
 
 const app = express();
 
