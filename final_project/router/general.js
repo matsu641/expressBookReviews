@@ -10,6 +10,7 @@ const public_users = express.Router();
 //res -> 返すオブジェクト
 
 //6. Post endpoint
+//新規ユーザー登録
 //username と password をリクエストボディから受け取る
 //同じ username がすでに存在していたらエラーを返す
 //成功したらユーザー情報を保存して成功メッセージを返す
