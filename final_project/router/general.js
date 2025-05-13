@@ -14,8 +14,24 @@ const public_users = express.Router();
 //同じ username がすでに存在していたらエラーを返す
 //成功したらユーザー情報を保存して成功メッセージを返す
 public_users.post("/register", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if(!username || !password){
+        return res.status(400).json({ message: "Username and password are required" });
+    }
+
+    //既存のusernameが存在しているかどうか確認
+    const userExists = users.some(user => user.username === username);
+
+    if (userExists) {
+        return res.status(409).json({ message: "Username already exists" });
+      }
+    
+      // ユーザーを追加
+      users.push({ username, password });
+    
+      return res.status(200).json({ message: "User successfully registered. Now you can login." });
 });
 
 // 1. Get the book list available in the shop
