@@ -9,7 +9,7 @@ const public_users = express.Router();
 //req -> クライアントサイドからのURL
 //res -> 返すオブジェクト
 
-//6. Post endpoint
+//TASK 6. Post endpoint
 //新規ユーザー登録
 //username と password をリクエストボディから受け取る
 //同じ username がすでに存在していたらエラーを返す
@@ -35,13 +35,13 @@ public_users.post("/register", (req,res) => {
       return res.status(200).json({ message: "User successfully registered. Now you can login." });
 });
 
-// 1. Get the book list available in the shop
+// TASK 1. Get the book list available in the shop
 //GET http://localhost:5000/でアクセスされたときだけ呼ばれる
 public_users.get('/', function (req, res) {
     return res.status(200).send(JSON.stringify(books, null, 4));
 });
   
-// 2. Get book details based on ISBN（本の番号）
+// TASK 2. Get book details based on ISBN（本の番号）
 //GET http://localhost:5000/isbn/:isbnでアクセスされたときだけ呼ばれる
 public_users.get('/isbn/:isbn',function (req, res) {
   const isbn = req.params.isbn //URLからisbnを取得
@@ -54,7 +54,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
   }
  });
   
-// 3. Get book details based on author
+// TASK 3. Get book details based on author
 //GET http://localhost:5000/author/:authorでアクセスされたときだけ呼ばれる
 public_users.get('/author/:author',function (req, res) {
     const authorLookingFor = req.params.author //URLからauthorを取得
@@ -74,7 +74,7 @@ public_users.get('/author/:author',function (req, res) {
     }
 });
 
-// 4. Get all books based on title
+// TASK 4. Get all books based on title
 //GET http://localhost:5000/title/:titleでアクセスされたときだけ呼ばれる
 public_users.get('/title/:title',function (req, res) {
     const titleLookingFor = req.params.title //URLからauthorを取得
@@ -94,7 +94,7 @@ public_users.get('/title/:title',function (req, res) {
     }
 });
 
-// 5. Get book review
+// TASK 5. Get book review
 //GET http://localhost:5000/review/:isbnでアクセスされたときだけ呼ばれる
 public_users.get('/review/:isbn',function (req, res) {
     const isbn = req.params.isbn //URLからisbnを取得
